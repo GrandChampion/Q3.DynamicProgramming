@@ -9,9 +9,8 @@ def basicLCSfromBack(A, B):
         else:
             return max(basicLCSfromBack(A[:len(A)-1], B), basicLCSfromBack(A, B[:len(B)-1]))
 
+##############################################################################################################################
 # Basic Recursive solution from front
-
-
 def basicLCSfromFront(A, B):
     if len(A) == 0 or len(B) == 0:
         return 0
@@ -21,8 +20,9 @@ def basicLCSfromFront(A, B):
         else:
             return max(basicLCSfromFront(A[1:], B), basicLCSfromFront(A, B[1:]))
 
-
+##############################################################################################################################
 # Memoization (while loop or recursion)
+# 2D memoization은 helper가 필요하다.
 # API
 # Input: two words, A and B
 # Output: size of the least common sequence string
@@ -52,19 +52,21 @@ def memoLCSfromBackHelper(sol, str1, str2):
                                                                   str2), memoLCSfromBackHelper(sol, str1, str2[:len(str2)-1]))
     return sol[len(str1)-1][len(str2)-1]
 
-# # API
-# # Input (same as memo helper): 2D array, two strings
-# # Output: LCS string
-# def extractLCSString(sol, str1, str2) -> str:
-#     if len(str1) == 0 or len(str2) == 0:
-#         return ""
-#     elif str1[len(str1)-1] == str2[len(str2)-1]:
-#         return extractLCSString(sol, str1[:len(str1)-1], str2[:len(str2)-1])+str1[len(str1)-1]
-#     else:
-#         if sol[len(str1)-2][len(str2)-1] > sol[len(str1)-1][len(str2)-2]:
-#             return extractLCSString(sol, str1[:len(str1)-1], str2)
-#         else:
-#             return extractLCSString(sol, str1, str2[:len(str2)-1])
+##############################################################################################################################
+
+# API
+# Input (same as memo helper): 2D array, two strings
+# Output: LCS string
+def extractLCSString(sol, str1, str2) -> str:
+    if len(str1) == 0 or len(str2) == 0:
+        return ""
+    elif str1[len(str1)-1] == str2[len(str2)-1]:
+        return extractLCSString(sol, str1[:len(str1)-1], str2[:len(str2)-1])+str1[len(str1)-1]
+    else:
+        if sol[len(str1)-2][len(str2)-1] > sol[len(str1)-1][len(str2)-2]:
+            return extractLCSString(sol, str1[:len(str1)-1], str2)
+        else:
+            return extractLCSString(sol, str1, str2[:len(str2)-1])
 
 
 # word1 = "babeeec"
@@ -73,8 +75,9 @@ def memoLCSfromBackHelper(sol, str1, str2):
 # memoLCSfromBackHelper(theSolution, word1, word2)
 # print(extractLCSString(theSolution, word1, word2))
 
+##############################################################################################################################
 
-# 2D 다이나믹 프로그래밍의 경우, 함수 1개면 끝난다.
+# 2D 다이나믹 프로그래밍의 경우, helper가 필요 없다.
 # 다이나믹 프로그래밍의 테이블은 row와 colmn에 한층씩 추가해 주어야 한다.
 def dynamicLCS(str1, str2):
     # Initialize solution array
@@ -93,4 +96,4 @@ def dynamicLCS(str1, str2):
     return solution[i][j]
 
 
-print(dynamicLCS("oocs", "oaes"))
+# print(dynamicLCS("oocs", "oaes"))

@@ -1,14 +1,18 @@
 # Memoization Coin Change (Top->Bottom: using while loop or recursion)
 import numpy as np
 
+# 1D memoization은 helper 함수가 필요하다.
+# memo 함수에서는 1D list를 선언하고, 함수를 부른다.
+
 
 def MemoCoinChange(n):
     solution = [-1 for i in range(n+1)]
     return MemoCoinChangeHelper(solution, n)
 
-
+# API
+# Input: 1D 리스트, 돈
+# Output: n을 만들기 위한 최소의 동전개수
 def MemoCoinChangeHelper(sol, n):
-    # 파이썬 list는 
     if n < 0:
         return np.inf
     elif n == 0:
@@ -20,27 +24,32 @@ def MemoCoinChangeHelper(sol, n):
             sol, n-25)+1, MemoCoinChangeHelper(sol, n-10)+1, MemoCoinChangeHelper(sol, n-1)+1)
     return sol[n]
 
-# # Dynamic Coin Change (Bottom->Up: using for loop)
-# def dynamicCoinChange(n):
-#     solution = [-1 for i in range(n+1)]
-#     for i in range(1, n+1):
-#         solution[i] = min(dynamicCoinChangeHelper(solution, i-25)+1, dynamicCoinChangeHelper(
-#             solution, i-10)+1, dynamicCoinChangeHelper(solution, i-1)+1)
-#     return solution[n]
+##############################################################################################################################
+# Dynamic Coin Change (Bottom->Up: using for loop)
+# 1D 다이나믹 프로그래밍은 helper가 필요하다.
 
-# # API
+def dynamicCoinChange(n):
+    solution = [-1 for i in range(n+1)]
+    for i in range(1, n+1):
+        solution[i] = min(dynamicCoinChangeHelper(solution, i-25)+1, dynamicCoinChangeHelper(
+            solution, i-10)+1, dynamicCoinChangeHelper(solution, i-1)+1)
+    return solution[n]
 
-# def dynamicCoinChangeHelper(sol, k):
-#     if k < 0:
-#         return np.inf
-#     elif k == 0:
-#         return 0
-#     else:
-#         return sol[k]
+# API
+
+
+def dynamicCoinChangeHelper(sol, k):
+    if k < 0:
+        return np.inf
+    elif k == 0:
+        return 0
+    else:
+        return sol[k]
 
 # print(dynamicCoinChange(100))
 
 
+##############################################################################################################################
 # Extract coin types
 solution1 = [-1 for i in range(28)]
 MemoCoinChangeHelper(solution1, 27)
