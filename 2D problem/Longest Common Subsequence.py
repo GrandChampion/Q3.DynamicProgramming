@@ -10,6 +10,8 @@ def basicLCSfromBack(A, B):
             return max(basicLCSfromBack(A[:len(A)-1], B), basicLCSfromBack(A, B[:len(B)-1]))
 
 # Basic Recursive solution from front
+
+
 def basicLCSfromFront(A, B):
     if len(A) == 0 or len(B) == 0:
         return 0
@@ -18,3 +20,14 @@ def basicLCSfromFront(A, B):
             return basicLCSfromFront(A[1:], B[1:])+1
         else:
             return max(basicLCSfromFront(A[1:], B), basicLCSfromFront(A, B[1:]))
+
+
+# Memoization (while loop or recursion)
+# API
+# Input: two words, A and B
+# Output: size of the least common sequence string
+def memoLCSfromBack(A, B):
+    Solution = [[-1]*len(B) for i in range(len(A))]
+    return meoLCSfromBackHelper(Solution, A, B)
+
+# API

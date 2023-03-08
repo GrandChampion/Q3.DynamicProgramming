@@ -20,8 +20,6 @@ def MemoCoinChangeHelper(sol, n):
     return sol[n]
 
 # # Dynamic Coin Change (Bottom->Up: using for loop)
-
-
 # def dynamicCoinChange(n):
 #     solution = [-1 for i in range(n+1)]
 #     for i in range(1, n+1):
@@ -40,6 +38,7 @@ def MemoCoinChangeHelper(sol, n):
 #         return sol[k]
 
 # print(dynamicCoinChange(100))
+
 
 # Extract coin types
 solution1 = [-1 for i in range(28)]
