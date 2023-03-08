@@ -32,21 +32,22 @@ def memoLCSfromBack(A, B):
     return memoLCSfromBackHelper(Solution, A, B)
 
 # API
-# Input: 2D array, two strings
-# Output: size of the least common sequence string
-# Effect: 1) insert number to solution array 2) check length
-
-
+# Input: 2D array, 2개의 단어
+# Output: LCS 의 길이
 def memoLCSfromBackHelper(sol, str1, str2):
     # 순서: memo 테이블이 -1이 아닌지 체크 -> str의 length가 0인지 체크 -> 두 str의 문자가 같은지 체크 -> else (memo 테이블 위/왼쪽 체크)
     # 주의 사항: sol[i]와 sol[:i]의 차이는 sol[:i]의 경우 마지막 인덱스를 포함하지 않는다.
+    # 테이블의 선택된 셀에 있는 값이 -1이 아닌 경우
     if sol[len(str1)-1][len(str2)-1] != -1:
         sol[len(str1)-1][len(str2)-1] = sol[len(str1)-2][len(str2)-2]+1
+    # 단어의 길이가 0인 경우
     elif len(str1) == 0 or len(str2) == 0:
         return 0
+    # 두 단어의 마지막 문자가 같은 경우
     elif str1[len(str1)-1] == str2[len(str2)-1]:
         sol[len(str1)-1][len(str2)-1] = memoLCSfromBackHelper(sol,
                                                               str1[:len(str1)-1], str2[:len(str2)-1])+1
+    # 다 아닌 경우, 위하고 왼쪽 체크
     else:
         sol[len(str1)-1][len(str2)-1] = max(memoLCSfromBackHelper(sol, str1[:len(str1)-1],
                                                                   str2), memoLCSfromBackHelper(sol, str1, str2[:len(str2)-1]))
@@ -55,13 +56,16 @@ def memoLCSfromBackHelper(sol, str1, str2):
 ##############################################################################################################################
 
 # API
-# Input (same as memo helper): 2D array, two strings
-# Output: LCS string
+# Input (memo helper와 같다): 2D array, 2개의 단어
+# Output: 실제 LCS 문자열
 def extractLCSString(sol, str1, str2) -> str:
+    # base case: 2개의 단어중 길이가 하나라도 0인경우
     if len(str1) == 0 or len(str2) == 0:
         return ""
+    # 단어의 마지막 문자가 같은 경우
     elif str1[len(str1)-1] == str2[len(str2)-1]:
         return extractLCSString(sol, str1[:len(str1)-1], str2[:len(str2)-1])+str1[len(str1)-1]
+    # 다 아닌 경우, 테이블에서 위쪽과 왼쪽 중, 큰쪽에 LCS 문자열을 구하는 함수 호출
     else:
         if sol[len(str1)-2][len(str2)-1] > sol[len(str1)-1][len(str2)-2]:
             return extractLCSString(sol, str1[:len(str1)-1], str2)
