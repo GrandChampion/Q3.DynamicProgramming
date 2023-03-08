@@ -8,6 +8,7 @@ def MemoCoinChange(n):
 
 
 def MemoCoinChangeHelper(sol, n):
+    # 파이썬 list는 
     if n < 0:
         return np.inf
     elif n == 0:
