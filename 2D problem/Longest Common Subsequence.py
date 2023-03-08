@@ -39,7 +39,7 @@ def memoLCSfromBackHelper(sol, str1, str2):
     # 주의 사항: sol[i]와 sol[:i]의 차이는 sol[:i]의 경우 마지막 인덱스를 포함하지 않는다.
     # 테이블의 선택된 셀에 있는 값이 -1이 아닌 경우
     if sol[len(str1)-1][len(str2)-1] != -1:
-        sol[len(str1)-1][len(str2)-1] = sol[len(str1)-2][len(str2)-2]+1
+        return sol[len(str1)-1][len(str2)-1]
     # 단어의 길이가 0인 경우
     elif len(str1) == 0 or len(str2) == 0:
         return 0
