@@ -1,6 +1,6 @@
 # Memoization (Top->Bottom: using while loop or recursion)
 def memoClimbStairs(n):
-    solution = [-1 for i in range(n+1)]
+    solution = [-1 for i in range(n + 1)]
     return memoClimbStairsHelper(solution, n)
 
 
@@ -12,7 +12,7 @@ def memoClimbStairsHelper(sol, i):
     elif i == 0:
         sol[i] = 1
     else:
-        sol[i] = memoClimbStairsHelper(sol, i-1)+memoClimbStairsHelper(sol, i-2)
+        sol[i] = memoClimbStairsHelper(sol, i - 1) + memoClimbStairsHelper(sol, i - 2)
     return sol[i]
 
 
@@ -21,10 +21,10 @@ def memoClimbStairsHelper(sol, i):
 ##############################################################################################################################
 # Dynamic Programming (Bottom->Up: using for loop)
 def dynamicClimbStairs(n):
-    solution = [-1 for i in range(n+1)]
-    for i in range(1, n+1):
+    solution = [-1 for i in range(n + 1)]
+    for i in range(1, n + 1):
         solution[i] = dynamicClimbStairsHelper(
-            solution, i-1)+dynamicClimbStairsHelper(solution, i-2)
+            solution, i - 1) + dynamicClimbStairsHelper(solution, i - 2)
     return solution[n]
 
 
